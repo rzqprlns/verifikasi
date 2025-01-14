@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Text Display</title>
+    <title>Interactive Age Response</title>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
 
@@ -17,45 +17,53 @@
             height: 100vh;
             margin: 0;
             background-color: #ecf0f3;
+            text-align: center;
+        }
+
+        #initialPrompt {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #ageInputContainer {
+            margin-top: 20px;
+        }
+
+        input[type="number"] {
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            box-shadow: 5px 5px 10px #bcbcbc, -5px -5px 10px #ffffff;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #ecf0f3;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 5px 5px 10px #bcbcbc, -5px -5px 10px #ffffff;
+            cursor: pointer;
+        }
+
+        button:hover {
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2), 0 0 30px rgba(0, 0, 0, 0.1), 0 0 40px rgba(0, 0, 0, 0.1);
+        }
+
+        #responseContainer {
+            display: none;
+            margin-top: 20px;
+        }
+
+        #verificationContainer {
+            display: none;
         }
 
         #verificationGif, #loadingGif, #resultGif {
             width: 70px;
             height: 70px;
             margin-bottom: 10px;
-        }
-
-        #verificationText {
-            margin-bottom: 20px;
-        }
-
-        #displayButton {
-            margin-bottom: 20px;
-            padding: 15px 25px;
-            background-color: #ecf0f3;
-            border: none;
-            border-radius: 15px;
-            box-shadow: 5px 5px 10px #bcbcbc, -5px -5px 10px #ffffff;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        #displayButton::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, #3498db, #8e44ad);
-            z-index: -1;
-            border-radius: 15px;
-        }
-
-        #displayButton:hover {
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2), 0 0 30px rgba(0, 0, 0, 0.1), 0 0 40px rgba(0, 0, 0, 0.1);
         }
 
         #loadingContainer {
@@ -79,18 +87,6 @@
             margin-top: 10px;
         }
 
-        #resultText {
-            display: none;
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        #resultGif {
-            border-radius: 15px; /* Tetap mempertahankan bingkai neomorphic pada hasil random */
-            box-shadow: 5px 5px 10px #bcbcbc, -5px -5px 10px #ffffff;
-        }
-
-        /* Animasi loading */
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -99,59 +95,97 @@
 </head>
 <body>
 
-<!-- Tempatkan ini di bagian body -->
-<img src="./uwu1.gif" alt="Verification Gif" id="verificationGif">
-<div id="verificationText">verifikasi duluu xixi </div>
-<button id="displayButton" onclick="displayRandomText()">klik disini yaa</button>
+<div id="initialPrompt">
+    <img src="./uwu4.gif" alt="Age Prompt Gif" id="promptGif">
+    <div>kamu dah gede ya? berapa taunn??</div>
+    <div id="ageInputContainer">
+        <input type="number" id="ageInput" placeholder="Masukkan umur kamu" min="0">
+        <button onclick="handleAgeResponse()">ok</button>
+    </div>
+</div>
+
+<div id="responseContainer">
+    <div id="ageResponse"></div>
+</div>
+
+<div id="verificationContainer">
+    <div style="margin-bottom: 10px;">sayang aku??</div>
+    <img src="./uwu1.gif" alt="Verification Gif" id="verificationGif">
+    <div id="verificationText">verifikasi duluu xixi</div>
+    <button id="displayButton" onclick="displayRandomText()">klik disini yaa</button>
+</div>
+
 <div id="loadingContainer">
     <img src="./uwu4.gif" alt="Loading Gif" id="loadingGif">
     <div>hmm mang eak ngab??</div>
     <div class="loading-spinner"></div>
 </div>
+
 <div id="resultText">
     <img src="uwu3.gif" alt="Result Gif" id="resultGif">
     <div style="margin-top: 20px;">Jawaban Random: <span id="randomAnswer"></span></div>
 </div>
 
 <script>
-    // Array berisi beberapa tulisan
-    var texts = [
-        "boonkk yaaa",
-        "gkk kedengeraaann",
-        "kamuuu dah gkk sygg yhh",
-        "kamuuu sygg enggaaa?",
-        "boonkk enggaaa",
-        // Tambahkan tulisan sesuai kebutuhan
-    ];
+    function handleAgeResponse() {
+        var age = parseInt(document.getElementById("ageInput").value);
+        var responseContainer = document.getElementById("responseContainer");
+        var ageResponse = document.getElementById("ageResponse");
 
-    // Fungsi untuk mendapatkan teks acak dari array
-    function getRandomText() {
-        var randomIndex = Math.floor(Math.random() * texts.length);
-        return texts[randomIndex];
+        if (isNaN(age)) {
+            alert("Masukkan umur yang valid ya!");
+            return;
+        }
+
+        responseContainer.style.display = "block";
+
+        if (age >= 0 && age <= 2) {
+            ageResponse.textContent = "masih bayikk dongg";
+        } else if (age >= 3 && age <= 10) {
+            ageResponse.textContent = "wii psti lagii lucu lucunyaa hihiy";
+        } else if (age >= 11 && age <= 18) {
+            ageResponse.textContent = "weys weyss psti banyak pacarnya yhh>";
+        } else if (age === 19) {
+            ageResponse.textContent = "xixi lucu yahh kita dah kenal";
+        } else if (age === 20) {
+            document.getElementById("initialPrompt").style.display = "none";
+            document.getElementById("verificationContainer").style.display = "block";
+        } else if (age === 21) {
+            ageResponse.textContent = "selamat datang di ramalan kiki";
+        } else {
+            ageResponse.textContent = "hmm umur segitu unik juga yaa~";
+        }
     }
 
-    // Fungsi untuk menampilkan efek loading dan menampilkan jawaban random setelah selesai
     function displayRandomText() {
         document.getElementById("verificationText").style.display = "none";
         document.getElementById("verificationGif").style.display = "none";
         document.getElementById("displayButton").style.display = "none";
-        
-        // Menampilkan efek loading
+
         var loadingContainer = document.getElementById("loadingContainer");
         loadingContainer.style.display = "flex";
         document.getElementById("loadingGif").style.display = "block";
 
         setTimeout(function() {
-            // Menyembunyikan efek loading
             loadingContainer.style.display = "none";
-            document.getElementById("loadingGif").style.display = "none";
             var resultText = document.getElementById("resultText");
             resultText.innerHTML = '<img src="./uwu3.gif" alt="Result Gif" id="resultGif">';
             resultText.innerHTML += '<div style="margin-top: 20px;"><span id="randomAnswer">' + getRandomText() + '</span></div>';
             resultText.style.display = "block";
-        }, 4000); // Mengatur waktu tunggu 4 detik
+        }, 4000);
+    }
+
+    function getRandomText() {
+        var texts = [
+            "boonkk yaaa",
+            "gkk kedengeraaann",
+            "kamuuu dah gkk sygg yhh",
+            "kamuuu sygg enggaaa?",
+            "boonkk enggaaa"
+        ];
+        return texts[Math.floor(Math.random() * texts.length)];
     }
 </script>
 
 </body>
-</html> 
+</html>
