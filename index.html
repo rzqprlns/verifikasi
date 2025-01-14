@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Random Text Display</title>
-
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
-
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -123,7 +121,7 @@
 
 <!-- Bagian verifikasi umur -->
 <div>
-    <input type="text" id="ageInput" placeholder="Masukkan umur Anda">
+    <input type="number" id="ageInput" placeholder="Masukkan umur Anda" min="0">
     <button id="ageButton" onclick="verifyAge()">Verifikasi Umur</button>
 </div>
 
@@ -215,6 +213,7 @@
     }
 
     function displayRandomText() {
+        var age = document.getElementById("ageInput").value;
         document.getElementById("verificationText").style.display = "none";
         document.getElementById("loadingContainer").style.display = "flex";
 
@@ -237,6 +236,9 @@
         var audioPlayer = document.getElementById("audioPlayer");
         audioPlayer.play();
         document.getElementById("playButton").style.display = "block";
+        setTimeout(function() {
+            document.getElementById("finalText").style.display = "block";
+        }, audioPlayer.duration * 1000);
     }
 
     function doRandomFortune() {
