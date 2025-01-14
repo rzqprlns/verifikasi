@@ -90,6 +90,10 @@
             box-shadow: 5px 5px 10px #bcbcbc, -5px -5px 10px #ffffff;
         }
 
+        #verificationPrompt {
+            margin-top: 20px;
+        }
+
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -148,6 +152,22 @@
             // Menampilkan elemen verifikasi dan tombol aksi
             document.getElementById("verificationGif").style.display = "block";
             document.getElementById("verificationText").style.display = "block";
+            
+            // Menampilkan teks sesuai rentang umur
+            if (age >= 0 && age <= 2) {
+                document.getElementById("verificationPrompt").innerText = "masih bayikk dongg";
+            } else if (age >= 3 && age <= 10) {
+                document.getElementById("verificationPrompt").innerText = "wii psti lagii lucu lucunyaa hihiy";
+            } else if (age >= 11 && age <= 18) {
+                document.getElementById("verificationPrompt").innerText = "weys weyss psti banyak pacarnya yhh>";
+            } else if (age == 19) {
+                document.getElementById("verificationPrompt").innerText = "xixi lucu yahh kita dah kenal";
+            } else if (age == 21) {
+                document.getElementById("verificationPrompt").innerText = "selamat datang di ramalan kiki";
+            } else {
+                document.getElementById("verificationPrompt").innerText = "umur tidak terdeteksi";
+            }
+            
             document.getElementById("verificationPrompt").style.display = "block";
             document.getElementById("displayButton").style.display = "block";
         }
