@@ -60,6 +60,37 @@
             display: none;
         }
 
+        #verificationGif, #loadingGif, #resultGif {
+            width: 70px;
+            height: 70px;
+            margin-bottom: 10px;
+        }
+
+        #loadingContainer {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+            background-color: #ecf0f3;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 5px 5px 10px #bcbcbc, -5px -5px 10px #ffffff;
+        }
+
+        .loading-spinner {
+            border: 6px solid rgba(0, 0, 0, 0.1);
+            border-top: 6px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 4s linear infinite;
+            margin-top: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
@@ -82,6 +113,17 @@
     <img src="./uwu1.gif" alt="Verification Gif" id="verificationGif">
     <div id="verificationText">verifikasi duluu xixi</div>
     <button id="displayButton" onclick="displayRandomText()">klik disini yaa</button>
+</div>
+
+<div id="loadingContainer">
+    <img src="./uwu4.gif" alt="Loading Gif" id="loadingGif">
+    <div>hmm mang eak ngab??</div>
+    <div class="loading-spinner"></div>
+</div>
+
+<div id="resultText">
+    <img src="uwu3.gif" alt="Result Gif" id="resultGif">
+    <div style="margin-top: 20px;">Jawaban Random: <span id="randomAnswer"></span></div>
 </div>
 
 <script>
@@ -116,6 +158,24 @@
     }
 
     function displayRandomText() {
+        document.getElementById("verificationText").style.display = "none";
+        document.getElementById("verificationGif").style.display = "none";
+        document.getElementById("displayButton").style.display = "none";
+
+        var loadingContainer = document.getElementById("loadingContainer");
+        loadingContainer.style.display = "flex";
+        document.getElementById("loadingGif").style.display = "block";
+
+        setTimeout(function() {
+            loadingContainer.style.display = "none";
+            var resultText = document.getElementById("resultText");
+            resultText.innerHTML = '<img src="./uwu3.gif" alt="Result Gif" id="resultGif">';
+            resultText.innerHTML += '<div style="margin-top: 20px;"><span id="randomAnswer">' + getRandomText() + '</span></div>';
+            resultText.style.display = "block";
+        }, 4000);
+    }
+
+    function getRandomText() {
         var texts = [
             "boonkk yaaa",
             "gkk kedengeraaann",
@@ -123,9 +183,7 @@
             "kamuuu sygg enggaaa?",
             "boonkk enggaaa"
         ];
-
-        var randomText = texts[Math.floor(Math.random() * texts.length)];
-        alert("Jawaban Random: " + randomText);
+        return texts[Math.floor(Math.random() * texts.length)];
     }
 </script>
 
