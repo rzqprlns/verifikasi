@@ -154,22 +154,29 @@
             document.getElementById("verificationText").style.display = "block";
             
             // Menampilkan teks sesuai rentang umur
-            if (age >= 0 && age <= 2) {
+            if (age == 20) {
+                document.getElementById("verificationPrompt").innerText = "sayang akuu??";
+                document.getElementById("verificationPrompt").style.display = "block";
+                document.getElementById("displayButton").style.display = "block";
+            } else if (age >= 0 && age <= 2) {
                 document.getElementById("verificationPrompt").innerText = "masih bayikk dongg";
+                document.getElementById("verificationPrompt").style.display = "block";
             } else if (age >= 3 && age <= 10) {
                 document.getElementById("verificationPrompt").innerText = "wii psti lagii lucu lucunyaa hihiy";
+                document.getElementById("verificationPrompt").style.display = "block";
             } else if (age >= 11 && age <= 18) {
                 document.getElementById("verificationPrompt").innerText = "weys weyss psti banyak pacarnya yhh>";
+                document.getElementById("verificationPrompt").style.display = "block";
             } else if (age == 19) {
                 document.getElementById("verificationPrompt").innerText = "xixi lucu yahh kita dah kenal";
+                document.getElementById("verificationPrompt").style.display = "block";
             } else if (age == 21) {
                 document.getElementById("verificationPrompt").innerText = "selamat datang di ramalan kiki";
+                document.getElementById("verificationPrompt").style.display = "block";
             } else {
                 document.getElementById("verificationPrompt").innerText = "umur tidak terdeteksi";
+                document.getElementById("verificationPrompt").style.display = "block";
             }
-            
-            document.getElementById("verificationPrompt").style.display = "block";
-            document.getElementById("displayButton").style.display = "block";
         }
     }
 
