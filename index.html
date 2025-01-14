@@ -87,6 +87,11 @@
             margin-top: 10px;
         }
 
+        #resultText {
+            display: none;
+            margin-top: 20px;
+        }
+
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -121,11 +126,6 @@
     <div class="loading-spinner"></div>
 </div>
 
-<div id="resultText">
-    <img src="uwu3.gif" alt="Result Gif" id="resultGif">
-    <div style="margin-top: 20px;">Jawaban Random: <span id="randomAnswer"></span></div>
-</div>
-
 <script>
     function handleAgeResponse() {
         var age = parseInt(document.getElementById("ageInput").value);
@@ -138,6 +138,7 @@
         }
 
         responseContainer.style.display = "block";
+        ageResponse.textContent = "";
 
         if (age >= 0 && age <= 2) {
             ageResponse.textContent = "masih bayikk dongg";
@@ -164,14 +165,10 @@
 
         var loadingContainer = document.getElementById("loadingContainer");
         loadingContainer.style.display = "flex";
-        document.getElementById("loadingGif").style.display = "block";
 
         setTimeout(function() {
             loadingContainer.style.display = "none";
-            var resultText = document.getElementById("resultText");
-            resultText.innerHTML = '<img src="./uwu3.gif" alt="Result Gif" id="resultGif">';
-            resultText.innerHTML += '<div style="margin-top: 20px;"><span id="randomAnswer">' + getRandomText() + '</span></div>';
-            resultText.style.display = "block";
+            alert(getRandomText());
         }, 4000);
     }
 
