@@ -98,11 +98,17 @@
 </head>
 <body>
 
-<!-- Tempatkan ini di bagian body -->
-<img src="./uwu1.gif" alt="Verification Gif" id="verificationGif">
-<div id="verificationText">verifikasi duluu xixi</div>
-<div id="verificationPrompt">sayang akuu??</div>
-<button id="displayButton" onclick="displayRandomText()">klik disini yaa</button>
+<!-- Bagian verifikasi umur -->
+<div>
+    <input type="text" id="ageInput" placeholder="Masukkan umur Anda">
+    <button id="ageButton" onclick="verifyAge()">Verifikasi Umur</button>
+</div>
+
+<!-- Bagian setelah verifikasi umur -->
+<img src="./uwu1.gif" alt="Verification Gif" id="verificationGif" style="display: none;">
+<div id="verificationText" style="display: none;">verifikasi duluu xixi</div>
+<div id="verificationPrompt" style="display: none;">sayang akuu??</div>
+<button id="displayButton" onclick="displayRandomText()" style="display: none;">klik disini yaa</button>
 
 <div id="loadingContainer">
     <img src="./uwu4.gif" alt="Loading Gif" id="loadingGif">
@@ -131,9 +137,25 @@
         return texts[randomIndex];
     }
 
+    // Fungsi untuk memverifikasi umur dan menampilkan tombol
+    function verifyAge() {
+        var age = document.getElementById("ageInput").value;
+        if (age) {
+            // Menyembunyikan input umur dan tombol verifikasi
+            document.getElementById("ageInput").style.display = "none";
+            document.getElementById("ageButton").style.display = "none";
+            
+            // Menampilkan elemen verifikasi dan tombol aksi
+            document.getElementById("verificationGif").style.display = "block";
+            document.getElementById("verificationText").style.display = "block";
+            document.getElementById("verificationPrompt").style.display = "block";
+            document.getElementById("displayButton").style.display = "block";
+        }
+    }
+
     // Fungsi untuk menampilkan efek loading dan menampilkan jawaban random setelah selesai
     function displayRandomText() {
-        // Menghilangkan teks dan gif verifikasi
+        // Menyembunyikan teks verifikasi dan gif
         document.getElementById("verificationText").style.display = "none";
         document.getElementById("verificationGif").style.display = "none";
         document.getElementById("verificationPrompt").style.display = "none";
