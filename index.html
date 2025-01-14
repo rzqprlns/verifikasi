@@ -90,7 +90,26 @@
             box-shadow: 5px 5px 10px #bcbcbc, -5px -5px 10px #ffffff;
         }
 
-        #verificationPrompt {
+        #verificationPrompt, #ramalanPrompt {
+            margin-top: 20px;
+        }
+
+        .rounded-button {
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #ecf0f3;
+            border: none;
+            border-radius: 30px;
+            box-shadow: 5px 5px 10px #bcbcbc, -5px -5px 10px #ffffff;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .rounded-button:hover {
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2), 0 0 30px rgba(0, 0, 0, 0.1), 0 0 40px rgba(0, 0, 0, 0.1);
+        }
+
+        #playButton {
             margin-top: 20px;
         }
 
@@ -109,10 +128,12 @@
 </div>
 
 <!-- Bagian setelah verifikasi umur -->
-<img src="./uwu1.gif" alt="Verification Gif" id="verificationGif" style="display: none;">
-<div id="verificationText" style="display: none;">verifikasi duluu xixi</div>
-<div id="verificationPrompt" style="display: none;">sayang akuu??</div>
-<button id="displayButton" onclick="displayRandomText()" style="display: none;">klik disini yaa</button>
+<div id="verificationSection" style="display: none;">
+    <img src="./uwu1.gif" alt="Verification Gif" id="verificationGif">
+    <div id="verificationText">verifikasi duluu xixi</div>
+    <div id="verificationPrompt" style="display: none;">sayang akuu??</div>
+    <button id="displayButton" onclick="displayRandomText()" style="display: none;">klik disini yaa</button>
+</div>
 
 <div id="loadingContainer">
     <img src="./uwu4.gif" alt="Loading Gif" id="loadingGif">
@@ -125,8 +146,40 @@
     <div style="margin-top: 20px;">Jawaban Random: <span id="randomAnswer"></span></div>
 </div>
 
+<!-- Bagian ramalan dan tombol-tombol -->
+<div id="ramalanPrompt" style="display: none;">
+    <button class="rounded-button" onclick="showSadText()">dah ninggalin</button>
+    <button class="rounded-button" onclick="showLoveText()">masih sayang kiki</button>
+</div>
+
+<div id="sadText" style="display: none;">
+    <p>kogitu :(</p>
+</div>
+
+<div id="loveText" style="display: none;">
+    <p>hihiyy, gimana harinyaa tengg??</p>
+    <button class="rounded-button" onclick="playRecording()">sedii</button>
+    <button class="rounded-button" onclick="playRecording()">hwappy</button>
+    <button class="rounded-button" onclick="playRecording()">mau nangis</button>
+    <button class="rounded-button" onclick="playRecording()">pengen marah</button>
+    <button class="rounded-button" onclick="playRecording()">pengen makan org</button>
+    <button class="rounded-button" onclick="playRecording()">b aja</button>
+    <button class="rounded-button" onclick="playRecording()">capee :(</button>
+    <button class="rounded-button" onclick="playRecording()">kangenn</button>
+</div>
+
+<div id="playButton" style="display: none;">
+    <audio id="audioPlayer" src="recording.mp3" controls></audio>
+    <button class="rounded-button" onclick="playRecording()">Play</button>
+</div>
+
+<div id="finalText" style="display: none;">
+    <p>sini aku ramall</p>
+    <button class="rounded-button" onclick="doRandomFortune()">boleh</button>
+    <button class="rounded-button" onclick="noFortune()">lagi gamau</button>
+</div>
+
 <script>
-    // Array berisi beberapa tulisan
     var texts = [
         "boonkk yaaa",
         "gkk kedengeraaann",
@@ -135,73 +188,64 @@
         "boonkk enggaaa",
     ];
 
-    // Fungsi untuk mendapatkan teks acak dari array
     function getRandomText() {
         var randomIndex = Math.floor(Math.random() * texts.length);
         return texts[randomIndex];
     }
 
-    // Fungsi untuk memverifikasi umur dan menampilkan tombol
     function verifyAge() {
         var age = document.getElementById("ageInput").value;
         if (age) {
-            // Menyembunyikan input umur dan tombol verifikasi
             document.getElementById("ageInput").style.display = "none";
             document.getElementById("ageButton").style.display = "none";
-            
-            // Menampilkan elemen verifikasi dan tombol aksi
-            document.getElementById("verificationGif").style.display = "block";
-            document.getElementById("verificationText").style.display = "block";
-            
-            // Menampilkan teks sesuai rentang umur
+            document.getElementById("verificationSection").style.display = "block";
+
             if (age == 20) {
                 document.getElementById("verificationPrompt").innerText = "sayang akuu??";
                 document.getElementById("verificationPrompt").style.display = "block";
                 document.getElementById("displayButton").style.display = "block";
-            } else if (age >= 0 && age <= 2) {
-                document.getElementById("verificationPrompt").innerText = "masih bayikk dongg";
-                document.getElementById("verificationPrompt").style.display = "block";
-            } else if (age >= 3 && age <= 10) {
-                document.getElementById("verificationPrompt").innerText = "wii psti lagii lucu lucunyaa hihiy";
-                document.getElementById("verificationPrompt").style.display = "block";
-            } else if (age >= 11 && age <= 18) {
-                document.getElementById("verificationPrompt").innerText = "weys weyss psti banyak pacarnya yhh>";
-                document.getElementById("verificationPrompt").style.display = "block";
-            } else if (age == 19) {
-                document.getElementById("verificationPrompt").innerText = "xixi lucu yahh kita dah kenal";
-                document.getElementById("verificationPrompt").style.display = "block";
             } else if (age == 21) {
-                document.getElementById("verificationPrompt").innerText = "selamat datang di ramalan kiki";
+                document.getElementById("verificationPrompt").innerText = "qq's tarot";
                 document.getElementById("verificationPrompt").style.display = "block";
+                document.getElementById("ramalanPrompt").style.display = "block";
             } else {
-                document.getElementById("verificationPrompt").innerText = "umur tidak terdeteksi";
-                document.getElementById("verificationPrompt").style.display = "block";
+                displayRandomText(age);
             }
         }
     }
 
-    // Fungsi untuk menampilkan efek loading dan menampilkan jawaban random setelah selesai
     function displayRandomText() {
-        // Menyembunyikan teks verifikasi dan gif
         document.getElementById("verificationText").style.display = "none";
-        document.getElementById("verificationGif").style.display = "none";
-        document.getElementById("verificationPrompt").style.display = "none";
-        document.getElementById("displayButton").style.display = "none";
-        
-        // Menampilkan efek loading
-        var loadingContainer = document.getElementById("loadingContainer");
-        loadingContainer.style.display = "flex";
-        document.getElementById("loadingGif").style.display = "block";
+        document.getElementById("loadingContainer").style.display = "flex";
 
         setTimeout(function() {
-            // Menyembunyikan efek loading
-            loadingContainer.style.display = "none";
-            document.getElementById("loadingGif").style.display = "none";
-            var resultText = document.getElementById("resultText");
-            resultText.innerHTML = '<img src="./uwu3.gif" alt="Result Gif" id="resultGif">';
-            resultText.innerHTML += '<div style="margin-top: 20px;"><span id="randomAnswer">' + getRandomText() + '</span></div>';
-            resultText.style.display = "block";
-        }, 4000); // Mengatur waktu tunggu 4 detik
+            document.getElementById("loadingContainer").style.display = "none";
+            document.getElementById("resultText").style.display = "block";
+            document.getElementById("randomAnswer").innerText = getRandomText();
+        }, 2000);
+    }
+
+    function showSadText() {
+        document.getElementById("sadText").style.display = "block";
+    }
+
+    function showLoveText() {
+        document.getElementById("loveText").style.display = "block";
+    }
+
+    function playRecording() {
+        var audioPlayer = document.getElementById("audioPlayer");
+        audioPlayer.play();
+        document.getElementById("playButton").style.display = "block";
+    }
+
+    function doRandomFortune() {
+        var randomFortune = getRandomText();
+        alert(randomFortune);
+    }
+
+    function noFortune() {
+        alert("Mungkin lain kali.");
     }
 </script>
 
